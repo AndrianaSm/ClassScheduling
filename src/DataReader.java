@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,21 @@ public class DataReader {
         }
     }
 
+    public ArrayList<String> getPairs(){
+        ArrayList<String> pairs = new ArrayList<>();
+
+        for(Map.Entry<Integer,Professor> professorEntry :professorMap.entrySet()) {
+            String profoserorSubjects=professorEntry.getValue().getSubjectsId();
+            String [] subjectsId= profoserorSubjects.split(",");
+            for(int i =0;i<subjectsId.length;i++) {
+                String pair= professorEntry.getKey().toString()+","+subjectsId[i];
+                pairs.add(pair);
+            }
+        }
+        return pairs;
+
+    }
+
     @Override
     public String toString() {
         return "DataReader{" +
@@ -47,4 +63,5 @@ public class DataReader {
                 ", professorMap=" + professorMap.toString() + "\n" +
                 '}';
     }
+
 }
