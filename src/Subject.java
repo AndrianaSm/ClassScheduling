@@ -8,14 +8,17 @@ public class Subject {
     private String name;
     private int maxWeeklyHours;
     private  int maxDailyHour;
-    private List<Subject> teacherList=new ArrayList<Subject>();
+    private String grade;
 
-    public Subject(int id, String name, int maxWeeklyHours, int maxDailyHour, List<Subject> teacherList) {
+    private List<Professor> professorList =new ArrayList<>();
+
+    public Subject(int id, String name, int maxWeeklyHours, int maxDailyHour,String grade) {
         this.id = id;
         this.name = name;
         this.maxWeeklyHours = maxWeeklyHours;
         this.maxDailyHour = maxDailyHour;
-        this.teacherList = teacherList;
+        this.grade=grade;
+        //this.professorList = professorList;
     }
 
 
@@ -35,8 +38,12 @@ public class Subject {
         return maxDailyHour;
     }
 
-    public List<Subject> getTeacherList() {
-        return teacherList;
+    public String getGrade() {
+        return grade;
+    }
+
+    public List<Professor> getProfessorList() {
+        return professorList;
     }
 
     public void setId(int id) {
@@ -55,8 +62,12 @@ public class Subject {
         this.maxDailyHour = maxDailyHour;
     }
 
-    public void setTeacherList(List<Subject> teacherList) {
-        this.teacherList = teacherList;
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public void setProfessorList(List<Professor> professorList) {
+        this.professorList = professorList;
     }
 
     @Override
@@ -66,7 +77,7 @@ public class Subject {
                 ", name='" + name + '\'' +
                 ", maxWeeklyHours=" + maxWeeklyHours +
                 ", maxDailyHour=" + maxDailyHour +
-                ", teacherList=" + teacherList +
+                ", professorList=" + professorList +
                 '}';
     }
 }

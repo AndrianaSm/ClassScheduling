@@ -1,55 +1,54 @@
-id;name;hours;max consecutive hours;grade
-1;Γλωσσική Διδασκαλεία;3;1;Α
-2;Νεοελληνική Λογοτεχνία;2;1;Α
-3;Αρχαία Ελληνική Γλώσσα;2;1;Α
-4;Αρχαία Ελληνικά Κείμενα από Μετάφραση;2;1;Α
-5;Μαθηματικά;4;1;Α
-6;Φυσική;1;1;Α
-7;Βιολογία;1;1;Α
-8;Γεωλογία - Γεωγραφία;1;1;Α
-9;Οικιακή Οικονομία;2;1;Α
-10;Ιστορία;2;1;Α
-11;Θρησκευτικά;2;1;Α
-12;Αγγλικά;2;1;Α
-13;Ισπανικά;2;1;Α
-14;Φυσική Αγωγή;2;1;Α
-15;Τεχνολογία;1;1;Α
-16;Πληροφορική;1;1;Α
-17;Μουσική;1;1;Α
-18;Καλλιτεχνικά;1;1;Α
-19;Γλωσσική Διδασκαλεία;2;1;Β
-20;Νεοελληνική Λογοτεχνία;2;1;Β
-21;Αρχαία Ελληνική Γλώσσα;2;1;Β
-22;Αρχαία Ελληνικά Κείμενα από Μετάφραση;2;1;Β
-23;Μαθηματικά;4;1;Β
-24;Φυσική;2;1;Β
-25;Χημεία;1;1;Β
-26;Βιολογία;1;1;Β
-27;Γεωλογία - Γεωγραφία;2;1;Β
-28;Ιστορία;2;1;Β
-29;Θρησκευτικά;2;1;Β
-30;Αγγλικά;2;1;Β
-31;Ισπανικά;2;1;Β
-32;Φυσική Αγωγή;2;1;Β
-33;Τεχνολογία;1;1;Β
-34;Πληροφορική;1;1;Β
-35;Μουσική;1;1;Β
-36;Καλλιτεχνικά;1;1;Β
-37;Γλωσσική Διδασκαλεία;2;1;Γ
-38;Νεοελληνική Λογοτεχνία;2;1;Γ
-39;Αρχαία Ελληνική Γλώσσα;2;1;Γ
-40;Αρχαία Ελληνικά Κείμενα από Μετάφραση;2;1;Γ
-41;Μαθηματικά;4;1;Γ
-42;Φυσική;2;1;Γ
-43;Χημεία;1;1;Γ
-44;Βιολογία;1;1;Γ
-45;Ιστορία;2;1;Γ
-46;Κοινωνική και Πολιτική Αγωγή;2;1;Γ
-47;Θρησκευτικά;2;1;Γ
-48;Αγγλικά;2;1;Γ
-49;Ισπανικά;2;1;Γ
-50;Φυσική Αγωγή;2;1;Γ
-51;Τεχνολογία;1;1;Γ
-52;Πληροφορική;1;1;Γ
-53;Μουσική;1;1;Γ
-54;Καλλιτεχνικά;1;1;Γ
+1;Glossiki Didaskalia;3;1;A
+2;Neoelliniki Logotexnia ;2;1;A
+3;Arxaia Elliniiki Glossa;2;1;A
+4;Arxaia Ellinika Keimena Apo Metafrasi;2;1;A
+5;Mathimatika;4;1;A
+6;Fusiki;1;1;A
+7;Biologia;1;1;A
+8;Geologia - Geografia;1;1;A
+9;Oikiaki Oikonomia;2;1;A
+10;Istoria;2;1;A
+11;Thriskeutika;2;1;A
+12;Agglika;2;1;A
+13;Ispanika;2;1;A
+14;Fusiki Agogi;2;1;A
+15;Texnologia;1;1;A
+16;Pliroforiki;1;1;A
+17;Mousiki;1;1;A
+18;Kallitexnika;1;1;A
+19;Glossiki Didaskalia;2;1;B
+20;Neoelliniki Logotexnia ;2;1;B
+21;Arxaia Elliniiki Glossa;2;1;B
+22;Arxaia Ellinika Keimena Apo Metafrasi;2;1;B
+23;Mathimatika;4;1;B
+24;Fusiki;2;1;B
+25;Ximeia;1;1;B
+26;Biologia;1;1;B
+27;Geologia - Geografia;2;1;B
+28;Istoria;2;1;B
+29;Thriskeutika;2;1;B
+30;Agglika;2;1;B
+31;Ispanika;2;1;B
+32;Fusiki Agogi;2;1;B
+33;Texnologia;1;1;B
+34;Pliroforiki;1;1;B
+35;Mousiki;1;1;B
+36;Kallitexnika;1;1;B
+37;Glossiki Didaskalia;2;1;C
+38;Neoelliniki Logotexnia ;2;1;C
+39;Arxaia Elliniiki Glossa;2;1;C
+40;Arxaia Ellinika Keimena Apo Metafrasi;2;1;C
+41;Mathimatika;4;1;C
+42;Fusiki;2;1;C
+43;Ximeia;1;1;C
+44;Biologia;1;1;C
+45;Istoria;2;1;C
+46;Koinoniki Kai Politiki Agwgh;2;1;C
+47;Thriskeutika;2;1;C
+48;Agglika;2;1;C
+49;Ispanika;2;1;C
+50;Fusiki Agogi;2;1;C
+51;Texnologia;1;1;C
+52;Pliroforiki;1;1;C
+53;Mousiki;1;1;C
+54;Kallitexnika;1;1;C
