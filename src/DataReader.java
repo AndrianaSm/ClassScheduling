@@ -8,8 +8,8 @@ import java.util.Map;
 public class DataReader {
 
 
-    private Map<Integer,Subject> subjectMap;
-    private Map<Integer, Professor> professorMap;
+    private Map<String,Subject> subjectMap;
+    private Map<String, Professor> professorMap;
 
     DataReader(){
         this.subjectMap=new HashMap<>();
@@ -23,7 +23,7 @@ public class DataReader {
         try {
             Files.lines(Paths.get("data/Subjects.csv")).forEach(r-> {
                 String [] splitline =r.split(";");
-                subjectMap.put(Integer.valueOf(splitline[0]),new Subject(Integer.valueOf(splitline[0]),splitline[1],Integer.valueOf(splitline[2]),Integer.valueOf(splitline[3]),splitline[4]));
+                subjectMap.put(splitline[0],new Subject(splitline[0],splitline[1],Integer.valueOf(splitline[2]),Integer.valueOf(splitline[3]),splitline[4]));
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class DataReader {
         try {
             Files.lines(Paths.get("data/Professors.csv")).forEach(r-> {
                 String [] splitline =r.split(";");
-                professorMap.put(Integer.valueOf(splitline[0]),new Professor(Integer.valueOf(splitline[0]),splitline[1],splitline[2],Integer.valueOf(splitline[3]),Integer.valueOf(splitline[4])));
+                professorMap.put(splitline[0],new Professor(splitline[0],splitline[1],splitline[2],Integer.valueOf(splitline[3]),Integer.valueOf(splitline[4])));
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,14 +44,14 @@ public class DataReader {
     public ArrayList<String> getPairs(){
         ArrayList<String> pairs = new ArrayList<>();
 
-        for(Map.Entry<Integer,Professor> professorEntry :professorMap.entrySet()) {
+        for(Map.Entry<String,Professor> professorEntry :professorMap.entrySet()) {
             String profoserorSubjects=professorEntry.getValue().getSubjectsId();
             String [] subjectsId= profoserorSubjects.split(",");
             for(int i =0;i<subjectsId.length;i++) {
                 String pair= professorEntry.getKey().toString()+","+subjectsId[i];
                 pairs.add(pair);
             }
-            pairs.add("0,0");
+            pairs.add("00,00");
         }
         return pairs;
 

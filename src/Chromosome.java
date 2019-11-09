@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,20 +17,19 @@ public class Chromosome implements Comparable<Chromosome> {
                 genes[i][j] = pairs.get(r.nextInt(pairs.size()));
             }
         }
-        //this.calculateFitness();
+        this.calculateFitness();
     }
 
-    public Chromosome(String [][] genes)
-    {
+    public Chromosome(String [][] genes,ArrayList<String> pairs) {
         this.genes = new String[7][45];
-
-        for(int i=0; i<7; i++)
-        {
+        this.pairs=pairs;
+        for(int i=0; i<7; i++) {
             for(int j=0 ;j<45;j++) {
                 this.genes[i][j] = genes[i][j];
             }
         }
-   //     this.calculateFitness();
+
+        this.calculateFitness();
     }
 
     public String [][] getGenes()
@@ -53,35 +51,32 @@ public class Chromosome implements Comparable<Chromosome> {
         this.fitness = fitness;
     }
 
-    //Calculates the fitness score of the chromosome as the number queen pairs that are NOT threatened
-    //The maximum number of queen pairs that are NOT threatened is (n-1) + (n-2) + ... + (n-n) = 7 + 6 + 5 + 4 + 3 + 2 + 1 = 28
-    public void calculateFitness()
-    {
-//        int non_threats = 0;
-//        for(int i=0; i<this.genes.length; i++)
-//        {
-//            for(int j=i+1; j<this.genes.length; j++)
-//            {
-//                //If the queens are NOT on the same row or on the same diagonal, there is NO threat
-//                if((this.genes[i] != this.genes[j]) && (Math.abs(i - j) != Math.abs(this.genes[i] - this.genes[j])))
-//                {
-//                    non_threats++;
-//                }
-//            }
-//        }
-//        this.fitness = non_threats;
+    public void calculateFitness() {
+        int rate=0;
+
+        //Enas kauhtghths kathe wra ths hmeras
+        int noCoincidence=1;
+        for(int i=0; i<7; i++) {
+            String  profesorsPerHour="";
+            for (int j = 0; j < 45; j++) {
+                profesorsPerHour+=(genes[i][j].split(",")[0]);
+            }
+            String [] dailyHours=new String[5];
+            for(int j=0;j<5;j++) {
+                dailyHours[j]=java.util.Arrays.toString(profesorsPerHour.split("(?<=\\G..................)")).replace("[","").replace("]","").replaceAll(" ","").split(",")[j];
+                noCoincidence+=uniqueCharacters(dailyHours[j]);
+            }
+        }
+        this.fitness=noCoincidence;
     }
 
-    //Mutate by randomly changing the position of a queen
-    public void mutate()
-    {
+    public void mutate() {
         Random r = new Random();
         this.genes[r.nextInt(7)][r.nextInt(45)] =  pairs.get(r.nextInt(pairs.size()));
         this.calculateFitness();
     }
 
-    public void print()
-    {
+    public void print() {
         for(int i =0 ; i<7 ;i++) {
             for(int j=0 ; j<45 ; j++) {
                 System.out.print(getGenes()[i][j]);
@@ -92,8 +87,7 @@ public class Chromosome implements Comparable<Chromosome> {
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         for(int i=0; i<7; i++) {
             for (int j = 0; j < 45; j++) {
                 if (this.genes[i][j] != ((Chromosome) obj).genes[i][j]) {
@@ -120,4 +114,18 @@ public class Chromosome implements Comparable<Chromosome> {
     public int compareTo(Chromosome x) {
         return this.fitness - x.fitness;
     }
+
+     int uniqueCharacters(String str)
+    {
+        // If at any time we encounter 2 same
+        // characters, return false
+        for (int i = 0; i < str.length(); i+=2)
+            for (int j = i + 1; j < str.length(); j+=2)
+                if (str.charAt(i) == str.charAt(j))
+                    return 0;
+        // If no duplicate characters encountered,
+        // return true
+        return 1;
+    }
+
 }

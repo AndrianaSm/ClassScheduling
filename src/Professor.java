@@ -1,14 +1,14 @@
 
 public class Professor {
 
-    private int id;
+    private String id;
     private String name;
     private String subjectsId;
     private int maxDailyHours;
     private int maxWeeklyHours;
 
 
-    public Professor(int id, String name, String subjectsId, int maxDailyHours,int maxWeeklyHours) {
+    public Professor(String id, String name, String subjectsId, int maxDailyHours,int maxWeeklyHours) {
         this.id = id;
         this.name = name;
         this.subjectsId = subjectsId;
@@ -16,7 +16,7 @@ public class Professor {
         this.maxWeeklyHours=maxWeeklyHours;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -38,7 +38,7 @@ public class Professor {
         return maxWeeklyHours;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

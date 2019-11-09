@@ -4,7 +4,7 @@ import java.util.List;
 public class Subject {
 
 
-    private int id;
+    private String id;
     private String name;
     private int maxWeeklyHours;
     private  int maxDailyHour;
@@ -12,17 +12,16 @@ public class Subject {
 
     private List<Professor> professorList =new ArrayList<>();
 
-    public Subject(int id, String name, int maxWeeklyHours, int maxDailyHour,String grade) {
+    public Subject(String id, String name, int maxWeeklyHours, int maxDailyHour,String grade) {
         this.id = id;
         this.name = name;
         this.maxWeeklyHours = maxWeeklyHours;
         this.maxDailyHour = maxDailyHour;
         this.grade=grade;
-        //this.professorList = professorList;
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -46,7 +45,7 @@ public class Subject {
         return professorList;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
