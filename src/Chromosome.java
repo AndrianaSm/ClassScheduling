@@ -55,7 +55,7 @@ public class Chromosome implements Comparable<Chromosome> {
         int rate=0;
 
         //Enas kauhtghths kathe wra ths hmeras
-        int noCoincidence=1;
+        int noCoincidence=0;
         for(int i=0; i<7; i++) {
             String  profesorsPerHour="";
             for (int j = 0; j < 45; j++) {
@@ -67,7 +67,50 @@ public class Chromosome implements Comparable<Chromosome> {
                 noCoincidence+=uniqueCharacters(dailyHours[j]);
             }
         }
-        this.fitness=noCoincidence;
+        rate=+noCoincidence;
+
+        //kathe taksi to mathima
+        int temp;
+        int rightLessons=1;
+        for(int i=0 ; i<45 ;i+=9){
+            for(int z=0 ; z<3 ; z++) {
+                temp=0;
+                for (int j = 0; j < 7; j++) {
+                    if (genes[j][i+z].split(",")[1].indexOf("A") > 0) {
+                        temp++;
+                    }
+                }
+                if(temp==7) rightLessons++;
+            }
+        }
+        for(int i=3 ; i<45 ;i+=9){
+            for(int z=0 ; z<3 ; z++) {
+                temp=0;
+                for (int j = 0; j < 7; j++) {
+                    if (genes[j][i+z].split(",")[1].indexOf("B") > 0) {
+                        temp++;
+                    }
+                }
+                if(temp==7) rightLessons++;
+            }
+        }
+
+        for(int i=6 ; i<45 ;i+=9){
+            for(int z=0 ; z<3 ; z++) {
+                temp=0;
+                for (int j = 0; j < 7; j++) {
+                    if (genes[j][i+z].split(",")[1].indexOf("C") > 0) {
+                        temp++;
+                    }
+                }
+                if(temp==7) rightLessons++;
+            }
+        }
+
+        rate+=rightLessons;
+
+//        System.out.println("______________________________"+"+"+rightLessons);
+        this.fitness=rate;
     }
 
     public void mutate() {

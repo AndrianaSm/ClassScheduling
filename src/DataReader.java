@@ -51,7 +51,7 @@ public class DataReader {
                 String pair= professorEntry.getKey().toString()+","+subjectsId[i];
                 pairs.add(pair);
             }
-            pairs.add("00,00");
+            pairs.add("00,ABC00");
         }
         return pairs;
 

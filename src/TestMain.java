@@ -1,3 +1,7 @@
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
+import java.lang.management.ThreadInfo;
+import java.util.Arrays;
 
 public class TestMain {
 
@@ -7,12 +11,12 @@ public class TestMain {
         Chromosome chromosome = new Chromosome(reader.getPairs());
 //
 //        chromosome.print();
-//        System.out.println("############################################################################################################################");
 //        chromosome.calculateFitness();
 
         Genetic g = new Genetic();
-        Chromosome x = g.geneticAlgorithm(1000, 0.03, 100, 100,reader.getPairs());
+        Chromosome x = g.geneticAlgorithm(1000, 0.03, 1000, 1000, reader.getPairs());
         x.print();
         System.out.println(x.getFitness());
     }
+
 }
