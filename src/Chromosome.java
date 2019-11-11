@@ -109,7 +109,37 @@ public class Chromosome implements Comparable<Chromosome> {
 
         rate+=rightLessons;
 
-//        System.out.println("______________________________"+"+"+rightLessons);
+
+        // 6-7 wres th mera. elegxoume ana sthlh, max 45 fitness, ousiastika koitaei ana tmhma posa kena exei ka8e mera kai an einai 1 h 0 tote auxanei fitness
+        int count;
+        int fit3=0;
+        for (int i=0; i<45; i++){
+            count=0;
+            for (int j=0; j<7; j++){
+                if (genes[j][i].split(",")[1].indexOf("ABC00")>0)   count++;
+
+            }
+            if (count<2) fit3++;
+        }
+        rate+=fit3;
+
+        //oxi kena stis endiamese wres. h teleutaia wra de mas noiazei ara i apo 0 ews 6. elegxw ana sthlh pali gia na vgalw 45 fitness, varuthta idia me ta alla
+        int fit4 = 0;
+        for(int i=0; i <45; i++){
+            count=0;
+            for(int j=0; j<6; j++){
+                if (genes[j][i].split(",")[1].indexOf("C") > 0) {
+                    count++; // einai etsi gia na kaneis elgxous me print
+                }
+            }
+            if (count<1) fit4++;
+        }//enw elegxei swsta kai bainei sthn if an uparxei ABC00, kapoio la8os ginetai kai to teliko exei ABC00 opou nanai
+        rate+=fit4;
+
+
+            System.out.println("_______________"+noCoincidence + " " + rightLessons + " "+fit3+" "+fit4);
+
+
         this.fitness=rate;
     }
 
