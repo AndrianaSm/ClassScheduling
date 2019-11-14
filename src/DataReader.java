@@ -16,7 +16,7 @@ public class DataReader {
         this.professorMap=new HashMap<>();
 
         loadSubjects();
-        loadProfessor();;
+        loadProfessor();
     }
 
     private void loadSubjects() {

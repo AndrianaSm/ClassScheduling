@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class Chromosome implements Comparable<Chromosome> {
     private String[][] genes;
     private int fitness;
@@ -20,7 +21,7 @@ public class Chromosome implements Comparable<Chromosome> {
         this.calculateFitness();
     }
 
-    public Chromosome(String [][] genes,ArrayList<String> pairs) {
+    public Chromosome(String [][] genes) {
         this.genes = new String[7][45];
         this.pairs=pairs;
         for(int i=0; i<7; i++) {
@@ -52,98 +53,63 @@ public class Chromosome implements Comparable<Chromosome> {
     }
 
     public void calculateFitness() {
-        int rate=0;
+        int rate = 1;
 
-        //Enas kauhtghths kathe wra ths hmeras
+        //Enas kathhghths kathe wra ths hmeras
         int noCoincidence=0;
-        for(int i=0; i<7; i++) {
-            String  profesorsPerHour="";
+
+        for(int i=0 ; i<7; i++) {
+            String  professorsPerHour="";
+
             for (int j = 0; j < 45; j++) {
-                profesorsPerHour+=(genes[i][j].split(",")[0]);
+                professorsPerHour+=(genes[i][j].split(",")[0]);
             }
             String [] dailyHours=new String[5];
             for(int j=0;j<5;j++) {
-                dailyHours[j]=java.util.Arrays.toString(profesorsPerHour.split("(?<=\\G..................)")).replace("[","").replace("]","").replaceAll(" ","").split(",")[j];
+                dailyHours[j]=java.util.Arrays.toString(professorsPerHour.split("(?<=\\G..................)")).replace("[","").replace("]","").replaceAll(" ","").split(",")[j];
                 noCoincidence+=uniqueCharacters(dailyHours[j]);
             }
         }
-        rate=+noCoincidence;
+        noCoincidence*=9;
+        rate+=noCoincidence;
 
         //kathe taksi to mathima
-        int temp;
-        int rightLessons=1;
+        int rightLessons=0;
+
         for(int i=0 ; i<45 ;i+=9){
             for(int z=0 ; z<3 ; z++) {
-                temp=0;
                 for (int j = 0; j < 7; j++) {
-                    if (genes[j][i+z].split(",")[1].indexOf("A") > 0) {
-                        temp++;
+                    if (genes[j][i + z].split(",")[1].contains("A")) {
+                        rightLessons++;
                     }
                 }
-                if(temp==7) rightLessons++;
             }
         }
         for(int i=3 ; i<45 ;i+=9){
             for(int z=0 ; z<3 ; z++) {
-                temp=0;
                 for (int j = 0; j < 7; j++) {
-                    if (genes[j][i+z].split(",")[1].indexOf("B") > 0) {
-                        temp++;
+                    if (genes[j][i + z].split(",")[1].contains("B")) {
+                        rightLessons++;
                     }
                 }
-                if(temp==7) rightLessons++;
             }
         }
-
         for(int i=6 ; i<45 ;i+=9){
             for(int z=0 ; z<3 ; z++) {
-                temp=0;
                 for (int j = 0; j < 7; j++) {
-                    if (genes[j][i+z].split(",")[1].indexOf("C") > 0) {
-                        temp++;
+                    if (genes[j][i + z].split(",")[1].contains("C")) {
+                        rightLessons++;
                     }
                 }
-                if(temp==7) rightLessons++;
             }
         }
 
         rate+=rightLessons;
-
-
-        // 6-7 wres th mera. elegxoume ana sthlh, max 45 fitness, ousiastika koitaei ana tmhma posa kena exei ka8e mera kai an einai 1 h 0 tote auxanei fitness
-        int count;
-        int fit3=0;
-        for (int i=0; i<45; i++){
-            count=0;
-            for (int j=0; j<7; j++){
-                if (genes[j][i].split(",")[1].indexOf("ABC00")>0)   count++;
-
-            }
-            if (count<2) fit3++;
-        }
-        rate+=fit3;
-
-        //oxi kena stis endiamese wres. h teleutaia wra de mas noiazei ara i apo 0 ews 6. elegxw ana sthlh pali gia na vgalw 45 fitness, varuthta idia me ta alla
-        int fit4 = 0;
-        for(int i=0; i <45; i++){
-            count=0;
-            for(int j=0; j<6; j++){
-                if (genes[j][i].split(",")[1].indexOf("C") > 0) {
-                    count++; // einai etsi gia na kaneis elgxous me print
-                }
-            }
-            if (count<1) fit4++;
-        }//enw elegxei swsta kai bainei sthn if an uparxei ABC00, kapoio la8os ginetai kai to teliko exei ABC00 opou nanai
-        rate+=fit4;
-
-
-            System.out.println("_______________"+noCoincidence + " " + rightLessons + " "+fit3+" "+fit4);
-
-
+        System.out.println("noCoincidence "+noCoincidence +" + " + "rightLessons " +rightLessons + " = " +rate);
         this.fitness=rate;
     }
 
-    public void mutate() {
+    public void mutate(ArrayList<String> pairs) {
         Random r = new Random();
         this.genes[r.nextInt(7)][r.nextInt(45)] =  pairs.get(r.nextInt(pairs.size()));
         this.calculateFitness();
@@ -188,13 +154,13 @@ public class Chromosome implements Comparable<Chromosome> {
         return this.fitness - x.fitness;
     }
 
-     int uniqueCharacters(String str)
+    int uniqueCharacters(String str)
     {
         // If at any time we encounter 2 same
         // characters, return false
         for (int i = 0; i < str.length(); i+=2)
-            for (int j = i + 1; j < str.length(); j+=2)
-                if (str.charAt(i) == str.charAt(j))
+            for (int j = i + 2; j < str.length(); j+=2)
+                if (str.charAt(i) == str.charAt(j) && str.charAt(i+1)==str.charAt(j+1))
                     return 0;
         // If no duplicate characters encountered,
         // return true

@@ -17,7 +17,7 @@ public class Genetic {
         Random r = new Random();
         for(int step=0; step < maximumSteps; step++) {
             //Initialize the new generated population
-            ArrayList<Chromosome> newPopulation = new ArrayList<Chromosome>();
+            ArrayList<Chromosome> newPopulation = new ArrayList<>();
             for(int i=0; i < populationSize; i++) {
                 int xIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size()));
                 Chromosome x = this.population.get(xIndex);
@@ -29,11 +29,11 @@ public class Genetic {
                 }
                 Chromosome y = this.population.get(yIndex);
 
-                Chromosome child = this.reproduce(x, y,pairs);
+                Chromosome child = this.reproduce(x, y);
 
                 if(r.nextDouble() < mutationProbability)
                 {
-                    child.mutate();
+                    child.mutate(pairs);
                 }
                 newPopulation.add(child);
             }
@@ -47,6 +47,9 @@ public class Genetic {
                 return this.population.get(0);
             }
             this.updateFitnessBounds();
+      //      System.out.println("******************************************" +step +"***********************************************************");
+       //     System.out.println("******************************************" +step +"***********************************************************");
+            //updatePopulation;
         }
 
         System.out.println("Finished after " + maximumSteps + " steps...");
@@ -58,6 +61,8 @@ public class Genetic {
         for(int i=0; i<=populationSize; i++)
         {
             this.population.add(new Chromosome(pairs));
+   //b         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + i +"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
         }
         this.updateFitnessBounds();
     }
@@ -73,7 +78,7 @@ public class Genetic {
         }
     }
 
-    public Chromosome reproduce(Chromosome x, Chromosome y,ArrayList<String> pairs) {
+    public Chromosome reproduce(Chromosome x, Chromosome y) {
         Random r = new Random();
 
         int rows =r.nextInt(7);
@@ -91,7 +96,7 @@ public class Genetic {
             }
 
         }
-        return new Chromosome(childGenes,pairs);
+        return new Chromosome(childGenes);
         //return x;
     }
 }
