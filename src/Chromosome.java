@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -11,12 +12,38 @@ public class Chromosome implements Comparable<Chromosome> {
         this.pairs=pairs;
         this.genes = new String[7][45];
         Random r = new Random();
-
+        String [] prof=new String[9];
+        int z=0;
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 45; j++) {
 
-                genes[i][j] = pairs.get(r.nextInt(pairs.size()));
+                String pair=pairs.get(r.nextInt(pairs.size()));
+
+                z=j%9;
+                if(z==0){
+                    Arrays.fill(prof,"");
+                }
+
+                if(j<=2 || (j>=9 && j<12) || (j>=18 && j<21) || (j>=27 && j<30) || (j>=36 && j<39)) {
+
+                    while(!pair.split(",")[1].contains("A") || stringContainsItemFromList(pair.split(",")[0],prof) ) {
+                        pair=pairs.get(r.nextInt(pairs.size()));
+                    }
+                }else if(j>2 && j<6 || (j>=12 && j<15) || (j>=21 && j<24) || (j>=30 && j<33) || (j>=39 && j<42)) {
+                    while(!pair.split(",")[1].contains("B") || stringContainsItemFromList(pair.split(",")[0],prof) ) {
+                        pair=pairs.get(r.nextInt(pairs.size()));
+                    }
+                }else {
+                    while(!pair.split(",")[1].contains("C") || stringContainsItemFromList(pair.split(",")[0],prof) ) {
+                        pair=pairs.get(r.nextInt(pairs.size()));
+                    }
+                }
+                prof[z]=pair.split(",")[0];
+
+
+                genes[i][j]=pair;
             }
+
         }
         this.calculateFitness();
     }
@@ -53,65 +80,46 @@ public class Chromosome implements Comparable<Chromosome> {
     }
 
     public void calculateFitness() {
-        int rate = 1;
 
-        //Enas kathhghths kathe wra ths hmeras
-        int noCoincidence=0;
 
-        for(int i=0 ; i<7; i++) {
-            String  professorsPerHour="";
-
-            for (int j = 0; j < 45; j++) {
-                professorsPerHour+=(genes[i][j].split(",")[0]);
-            }
-            String [] dailyHours=new String[5];
-            for(int j=0;j<5;j++) {
-                dailyHours[j]=java.util.Arrays.toString(professorsPerHour.split("(?<=\\G..................)")).replace("[","").replace("]","").replaceAll(" ","").split(",")[j];
-                noCoincidence+=uniqueCharacters(dailyHours[j]);
-            }
-        }
-        noCoincidence*=9;
-        rate+=noCoincidence;
-
-        //kathe taksi to mathima
-        int rightLessons=0;
-
-        for(int i=0 ; i<45 ;i+=9){
-            for(int z=0 ; z<3 ; z++) {
-                for (int j = 0; j < 7; j++) {
-                    if (genes[j][i + z].split(",")[1].contains("A")) {
-                        rightLessons++;
-                    }
-                }
-            }
-        }
-        for(int i=3 ; i<45 ;i+=9){
-            for(int z=0 ; z<3 ; z++) {
-                for (int j = 0; j < 7; j++) {
-                    if (genes[j][i + z].split(",")[1].contains("B")) {
-                        rightLessons++;
-                    }
-                }
-            }
-        }
-        for(int i=6 ; i<45 ;i+=9){
-            for(int z=0 ; z<3 ; z++) {
-                for (int j = 0; j < 7; j++) {
-                    if (genes[j][i + z].split(",")[1].contains("C")) {
-                        rightLessons++;
-                    }
-                }
-            }
-        }
-
-        rate+=rightLessons;
-        System.out.println("noCoincidence "+noCoincidence +" + " + "rightLessons " +rightLessons + " = " +rate);
-        this.fitness=rate;
+        this.fitness=checkTheProgramm();
+        System.out.println(fitness);
     }
 
     public void mutate(ArrayList<String> pairs) {
         Random r = new Random();
-        this.genes[r.nextInt(7)][r.nextInt(45)] =  pairs.get(r.nextInt(pairs.size()));
+
+        int i=r.nextInt(7);
+        int j=r.nextInt(5);
+        int b=0;
+        String [] prof= new String[9];
+        Arrays.fill(prof,"");
+
+        for(int z=j*9 ; z<(j+1)*9 ; z++) {
+
+            String pair=pairs.get(r.nextInt(pairs.size()));
+
+            if(z<=2 || (z>=9 && z<12) || (z>=18 && z<21) || (z>=27 && z<30) || (z>=36 && z<39)) {
+
+                while(!pair.split(",")[1].contains("A") || stringContainsItemFromList(pair.split(",")[0],prof) ) {
+                    pair=pairs.get(r.nextInt(pairs.size()));
+                }
+            }else if(z>2 && z<6 || (z>=12 && z<15) || (z>=21 && z<24) || (z>=30 && z<33) || (z>=39 && z<42)) {
+                while(!pair.split(",")[1].contains("B") || stringContainsItemFromList(pair.split(",")[0],prof) ) {
+                    pair=pairs.get(r.nextInt(pairs.size()));
+                }
+            }else {
+                while(!pair.split(",")[1].contains("C") || stringContainsItemFromList(pair.split(",")[0],prof) ) {
+                    pair=pairs.get(r.nextInt(pairs.size()));
+                }
+            }
+            prof[b]=pair.split(",")[0];
+            b++;
+
+            this.genes[i][z]=pair;
+        }
+
+
         this.calculateFitness();
     }
 
@@ -165,6 +173,73 @@ public class Chromosome implements Comparable<Chromosome> {
         // If no duplicate characters encountered,
         // return true
         return 1;
+    }
+
+    public  boolean stringContainsItemFromList(String inputStr, String[] items) {
+        for(int i =0; i < items.length; i++) {
+            if(items[i].contains(inputStr)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int checkTheProgramm() {
+        int rate = 1;
+
+        //Enas kathhghths kathe wra ths hmeras
+        int noCoincidence=0;
+
+        for(int i=0 ; i<7; i++) {
+            String  professorsPerHour="";
+
+            for (int j = 0; j < 45; j++) {
+                professorsPerHour+=(genes[i][j].split(",")[0]);
+            }
+            String [] dailyHours=new String[5];
+            for(int j=0;j<5;j++) {
+                dailyHours[j]=java.util.Arrays.toString(professorsPerHour.split("(?<=\\G..................)")).replace("[","").replace("]","").replaceAll(" ","").split(",")[j];
+                noCoincidence+=uniqueCharacters(dailyHours[j]);
+            }
+        }
+        noCoincidence*=9;
+        rate+=noCoincidence;
+
+        //kathe taksi to mathima
+        int rightLessons=0;
+
+        for(int i=0 ; i<45 ;i+=9){
+            for(int z=0 ; z<3 ; z++) {
+                for (int j = 0; j < 7; j++) {
+                    if (genes[j][i + z].split(",")[1].contains("A")) {
+                        rightLessons++;
+                    }
+                }
+            }
+        }
+        for(int i=3 ; i<45 ;i+=9){
+            for(int z=0 ; z<3 ; z++) {
+                for (int j = 0; j < 7; j++) {
+                    if (genes[j][i + z].split(",")[1].contains("B")) {
+                        rightLessons++;
+                    }
+                }
+            }
+        }
+        for(int i=6 ; i<45 ;i+=9){
+            for(int z=0 ; z<3 ; z++) {
+                for (int j = 0; j < 7; j++) {
+                    if (genes[j][i + z].split(",")[1].contains("C")) {
+                        rightLessons++;
+                    }
+                }
+            }
+        }
+
+        rate+=rightLessons;
+      //  System.out.println("noCoincidence "+noCoincidence +" + " + "rightLessons " +rightLessons + " = " +rate);
+
+        return rate;
     }
 
 }

@@ -81,21 +81,23 @@ public class Genetic {
     public Chromosome reproduce(Chromosome x, Chromosome y) {
         Random r = new Random();
 
-        int rows =r.nextInt(7);
-        int columns= r.nextInt(45);
+        int day= r.nextInt(5)+1;
 
         String [][] childGenes = new String[7][45];
 
-        for(int i = 0;i<7;i++) {
-            for(int j = 0 ; j<45;j++) {
-                if(i<=rows && j<=columns) {
-                    childGenes[i][j]=x.getGenes()[i][j];
-                }else {
-                    childGenes[i][j]=y.getGenes()[i][j];
-                }
+        for(int j=0; j<7 ;j++) {
+            for(int i=0 ; i<day*9 ;i++ ) {
+                childGenes[j][i]=x.getGenes()[j][i];
             }
-
         }
+
+        for(int j=0; j<7 ;j++) {
+            for(int i=day*9 ; i<45 ;i++ ) {
+                childGenes[j][i]=y.getGenes()[j][i];
+            }
+        }
+
+
         return new Chromosome(childGenes);
         //return x;
     }
