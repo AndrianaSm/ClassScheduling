@@ -1,3 +1,6 @@
+import data.DataReader;
+import genetic.Chromosome;
+import genetic.Genetic;
 
 public class TestMain {
 

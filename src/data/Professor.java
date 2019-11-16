@@ -1,3 +1,4 @@
+package data;
 
 public class Professor {
 
@@ -60,7 +61,7 @@ public class Professor {
 
     @Override
     public String toString() {
-        return "Professor{" +
+        return "data.Professor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", subjectsId='" + subjectsId + '\'' +

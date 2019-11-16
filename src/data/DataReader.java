@@ -1,3 +1,5 @@
+package data;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,11 +9,10 @@ import java.util.Map;
 
 public class DataReader {
 
-
-    private Map<String,Subject> subjectMap;
+    private Map<String, Subject> subjectMap;
     private Map<String, Professor> professorMap;
 
-    DataReader(){
+    public DataReader(){
         this.subjectMap=new HashMap<>();
         this.professorMap=new HashMap<>();
 
@@ -19,7 +20,7 @@ public class DataReader {
         loadProfessor();
     }
 
-    private void loadSubjects() {
+    public void loadSubjects() {
         try {
             Files.lines(Paths.get("data/Subjects.csv")).forEach(r-> {
                 String [] splitline =r.split(";");
@@ -30,7 +31,7 @@ public class DataReader {
         }
     }
 
-    private void loadProfessor(){
+    public void loadProfessor(){
         try {
             Files.lines(Paths.get("data/Professors.csv")).forEach(r-> {
                 String [] splitline =r.split(";");
@@ -57,7 +58,7 @@ public class DataReader {
 
     @Override
     public String toString() {
-        return "DataReader{" +
+        return "data.DataReader{" +
                 "subjectMap=" + subjectMap.toString() + "\n" +
                 ", professorMap=" + professorMap.toString() + "\n" +
                 '}';

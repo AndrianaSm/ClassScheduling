@@ -1,3 +1,5 @@
+package data;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +73,7 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject{" +
+        return "data.Subject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", maxWeeklyHours=" + maxWeeklyHours +

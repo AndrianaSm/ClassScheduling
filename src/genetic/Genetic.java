@@ -79,23 +79,6 @@ public class Genetic {
     }
 
     public Chromosome reproduce(Chromosome x, Chromosome y) {
-
-
-//        int cout = new Random().nextInt(36);
-//        int day;
-//        int hour;
-//
-//        for(int i = 0 ; i<cout ;i++){
-//            day = chooseDay();
-//            hour = chooseHour();
-//            for(int j = day ; j<day+9 ;j++) {
-//                x.getGenes()[hour][day]=y.getGenes()[hour][day];
-//            }
-//        }
-//
-//        return new Chromosome(x.getGenes());
-
-
         Random r = new Random();
 
         int day= r.nextInt(5)+1;
@@ -118,15 +101,4 @@ public class Genetic {
         return new Chromosome(childGenes);
         //return x;
     }
-
-    private int chooseDay() {
-        int [] days ={0,9,18,27,36};
-        return days[new Random().nextInt(5)];
-    }
-    private  int chooseHour() {
-        int [] hours={0,1,2,3,4,5,6};
-        return hours[new Random().nextInt(7)];
-    }
-
-
 }
