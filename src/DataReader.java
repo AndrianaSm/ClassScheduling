@@ -52,9 +52,7 @@ public class DataReader {
                 pairs.add(pair);
             }
         }
-        pairs.add("00,ABC00");
         return pairs;
-
     }
 
     @Override
