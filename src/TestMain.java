@@ -9,12 +9,8 @@ public class TestMain {
         DataReader data = new DataReader();
 
         Genetic g = new Genetic();
-        Chromosome x = g.geneticAlgorithm(100, 0.05, 150, 1000, data);
+        Chromosome x = g.geneticAlgorithm(100, 0.0, 150, 10, data);
         x.print();
         System.out.println(x.getFitness() );
-
     }
-
-
-
 }

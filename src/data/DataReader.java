@@ -49,6 +49,7 @@ public class DataReader {
             for(int i =0;i<subjectsId.length;i++) {
                 String pair= professorEntry.getKey() +","+subjectsId[i];
                 pairs.add(pair);
+
             }
         }
         return pairs;

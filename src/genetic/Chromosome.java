@@ -35,6 +35,7 @@ public class Chromosome implements Comparable<Chromosome> {
             }
         }
         this.calculateFitness();
+        print();
     }
 
     public Chromosome(String[][] genes,DataReader reader) {
@@ -70,7 +71,11 @@ public class Chromosome implements Comparable<Chromosome> {
         String columnProf[] = new String[7];
         String columnSubj[] = new String[7];
         String [][] columnProfDaily=new String[7][9];
-        int lim=0;
+        lim1=0;
+        lim2=0;
+        lim3=0;
+        lim4=0;
+
         for (int i = 0; i < 45; i++) {
             Arrays.fill(columnProf,"");
             for (int j = 0; j < 7; j++) {
@@ -96,7 +101,7 @@ public class Chromosome implements Comparable<Chromosome> {
         }
 
 
-        rate=((lim+lim2)+(lim3*2)/(135)+lim4)/2;
+        rate=((lim1+lim2+lim3)*100/(135)+lim4)/2;
  //       System.out.println(lim);
         System.out.println(lim1+" "+lim2+" "+lim3+" "+lim4+" " +rate);
         this.fitness = rate;
@@ -258,6 +263,7 @@ public class Chromosome implements Comparable<Chromosome> {
             if(entry.getValue() <=maxDailyHours) {
                 count++;
             }
+
         }
 
         count=(count/professorsHours.size())*100;

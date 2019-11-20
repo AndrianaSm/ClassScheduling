@@ -1,3 +1,7 @@
+package genetic;
+
+import data.DataReader;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -12,8 +16,8 @@ public class Genetic {
         this.fitnessBounds = null;
     }
 
-    public Chromosome geneticAlgorithm(int populationSize, double mutationProbability, int minimumFitness, int maximumSteps,ArrayList<String> pairs) {
-        initializePopulation(populationSize,pairs);
+    public Chromosome geneticAlgorithm(int populationSize, double mutationProbability, int minimumFitness, int maximumSteps, DataReader data) {
+        initializePopulation(populationSize,data);
         Random r = new Random();
         for(int step=0; step < maximumSteps; step++) {
             //Initialize the new generated population
@@ -29,11 +33,11 @@ public class Genetic {
                 }
                 Chromosome y = this.population.get(yIndex);
 
-                Chromosome child = this.reproduce(x, y);
+                Chromosome child = this.reproduce(x, y,data);
 
                 if(r.nextDouble() < mutationProbability)
                 {
-                    child.mutate(pairs);
+                    child.mutate(data.getPairs());
                 }
                 newPopulation.add(child);
             }
@@ -47,20 +51,18 @@ public class Genetic {
                 return this.population.get(0);
             }
             this.updateFitnessBounds();
-      //      System.out.println("******************************************" +step +"***********************************************************");
-       //     System.out.println("******************************************" +step +"***********************************************************");
-            //updatePopulation;
+
         }
 
         System.out.println("Finished after " + maximumSteps + " steps...");
         return this.population.get(0);
     }
 
-    public void initializePopulation(int populationSize,ArrayList<String> pairs) {
+    public void initializePopulation(int populationSize,DataReader data) {
         this.population = new ArrayList<>();
         for(int i=0; i<=populationSize; i++)
         {
-            this.population.add(new Chromosome(pairs));
+            this.population.add(new Chromosome(data));
    //b         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + i +"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
         }
@@ -69,20 +71,18 @@ public class Genetic {
 
     public void updateFitnessBounds() {
         this.fitnessBounds = new ArrayList<>();
-        for (int i=0; i<this.population.size(); i++)
-        {
-            for(int j=0; j<this.population.get(i).getFitness(); j++)
-            {
+        for (int i=0; i<this.population.size(); i++) {
+            int count= this.population.get(i).lim3*30 + this.population.get(i).lim1 + this.population.get(i).lim2 + this.population.get(i).lim4;
+            for(int j=0; j<count; j++) {
                 fitnessBounds.add(i);
             }
         }
     }
 
-    public Chromosome reproduce(Chromosome x, Chromosome y) {
+    public Chromosome reproduce(Chromosome x, Chromosome y,DataReader data) {
+
         Random r = new Random();
-
         int day= r.nextInt(5)+1;
-
         String [][] childGenes = new String[7][45];
 
         for(int j=0; j<7 ;j++) {
@@ -90,15 +90,13 @@ public class Genetic {
                 childGenes[j][i]=x.getGenes()[j][i];
             }
         }
-
         for(int j=0; j<7 ;j++) {
             for(int i=day*9 ; i<45 ;i++ ) {
                 childGenes[j][i]=y.getGenes()[j][i];
             }
         }
-
-
-        return new Chromosome(childGenes);
+        return new Chromosome(childGenes,data);
         //return x;
     }
+
 }
