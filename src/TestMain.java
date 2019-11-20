@@ -5,14 +5,14 @@ import genetic.Genetic;
 public class TestMain {
 
     public static void main(String[] args) {
-        DataReader reader = new DataReader();
 
-        Chromosome chromosome = new Chromosome(reader.getPairs());
+        DataReader data = new DataReader();
 
         Genetic g = new Genetic();
-        Chromosome x = g.geneticAlgorithm(100, 0.03, 150, 10000, reader.getPairs());
+        Chromosome x = g.geneticAlgorithm(100, 0.05, 150, 1000, data);
         x.print();
-        System.out.println(x.getFitness());
+        System.out.println(x.getFitness() );
+
     }
 
 

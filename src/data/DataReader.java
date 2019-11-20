@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataReader {
-
     private Map<String, Subject> subjectMap;
     private Map<String, Professor> professorMap;
 
@@ -19,8 +18,7 @@ public class DataReader {
         loadSubjects();
         loadProfessor();
     }
-
-    public void loadSubjects() {
+    private void loadSubjects() {
         try {
             Files.lines(Paths.get("data/Subjects.csv")).forEach(r-> {
                 String [] splitline =r.split(";");
@@ -31,7 +29,7 @@ public class DataReader {
         }
     }
 
-    public void loadProfessor(){
+    private void loadProfessor(){
         try {
             Files.lines(Paths.get("data/Professors.csv")).forEach(r-> {
                 String [] splitline =r.split(";");
@@ -49,11 +47,19 @@ public class DataReader {
             String profoserorSubjects=professorEntry.getValue().getSubjectsId();
             String [] subjectsId= profoserorSubjects.split(",");
             for(int i =0;i<subjectsId.length;i++) {
-                String pair= professorEntry.getKey().toString()+","+subjectsId[i];
+                String pair= professorEntry.getKey() +","+subjectsId[i];
                 pairs.add(pair);
             }
         }
         return pairs;
+    }
+
+    public Map<String, Subject> getSubjectMap() {
+        return subjectMap;
+    }
+
+    public Map<String, Professor> getProfessorMap() {
+        return professorMap;
     }
 
     @Override
@@ -63,5 +69,4 @@ public class DataReader {
                 ", professorMap=" + professorMap.toString() + "\n" +
                 '}';
     }
-
 }
