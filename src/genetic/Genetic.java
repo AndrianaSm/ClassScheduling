@@ -23,13 +23,13 @@ public class Genetic {
             //Initialize the new generated population
             ArrayList<Chromosome> newPopulation = new ArrayList<>();
             for(int i=0; i < populationSize; i++) {
-                int xIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size()));
+                int xIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size()/4));
                 Chromosome x = this.population.get(xIndex);
-                int yIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size()));
+                int yIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size())/4);
 
                 while(yIndex == xIndex)
                 {
-                    yIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size()));
+                    yIndex = this.fitnessBounds.get(r.nextInt(this.fitnessBounds.size())/4);
                 }
                 Chromosome y = this.population.get(yIndex);
 
@@ -41,7 +41,7 @@ public class Genetic {
                 }
                 newPopulation.add(child);
             }
-            this.population = new ArrayList<Chromosome>(newPopulation);
+            this.population = new ArrayList<>(newPopulation);
 
             Collections.sort(this.population, Collections.reverseOrder());
             //If the chromosome with the best fitness is acceptable we return it
@@ -50,21 +50,20 @@ public class Genetic {
                 System.out.println("Finished after " + step + " steps...");
                 return this.population.get(0);
             }
+            System.out.println(step+" :" +(double)this.population.get(0).getFitness()/8);
+
             this.updateFitnessBounds();
+      //      System.out.println(step+"***********************************************");
 
         }
-
-        System.out.println("Finished after " + maximumSteps + " steps...");
+//        System.out.println("Finished after " + maximumSteps + " steps...");
         return this.population.get(0);
     }
 
     public void initializePopulation(int populationSize,DataReader data) {
         this.population = new ArrayList<>();
-        for(int i=0; i<=populationSize; i++)
-        {
+        for(int i=0; i<=populationSize; i++) {
             this.population.add(new Chromosome(data));
-   //b         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + i +"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-
         }
         this.updateFitnessBounds();
     }
@@ -72,8 +71,16 @@ public class Genetic {
     public void updateFitnessBounds() {
         this.fitnessBounds = new ArrayList<>();
         for (int i=0; i<this.population.size(); i++) {
-            int count= this.population.get(i).lim3*30 + this.population.get(i).lim1 + this.population.get(i).lim2 + this.population.get(i).lim4;
-            for(int j=0; j<count; j++) {
+            int count= this.population.get(i).hours6_7 +
+                    this.population.get(i).noGaps +
+                    this.population.get(i).maxDailySubjectHours +
+                    this.population.get(i).maxDailyProfHours +
+                    this.population.get(i).consecutiveHours+
+                    this.population.get(i).weeklyProfessorHours +
+                    this.population.get(i).weeklySubjectHours +
+                    this.population.get(i).relationTeacherSubject*1000;
+
+            for(int j=0; j<this.population.get(i).getFitness(); j++) {
                 fitnessBounds.add(i);
             }
         }
@@ -81,22 +88,28 @@ public class Genetic {
 
     public Chromosome reproduce(Chromosome x, Chromosome y,DataReader data) {
 
-        Random r = new Random();
-        int day= r.nextInt(5)+1;
-        String [][] childGenes = new String[7][45];
+        int count = new Random().nextInt(36);
+        int day;
+        int hour;
 
-        for(int j=0; j<7 ;j++) {
-            for(int i=0 ; i<day*9 ;i++ ) {
-                childGenes[j][i]=x.getGenes()[j][i];
+        for(int i = 0 ; i<count ;i++){
+            day = chooseDay();
+            hour = chooseHour();
+            for(int j = day ; j<day+9 ;j++) {
+                x.getGenes()[hour][day]=y.getGenes()[hour][day];
             }
         }
-        for(int j=0; j<7 ;j++) {
-            for(int i=day*9 ; i<45 ;i++ ) {
-                childGenes[j][i]=y.getGenes()[j][i];
-            }
-        }
-        return new Chromosome(childGenes,data);
-        //return x;
+
+        return new genetic.Chromosome(x.getGenes(),data);
     }
+    private int chooseDay() {
+        int [] days ={0,9,18,27,36};
+        return days[new Random().nextInt(5)];
+    }
+    private  int chooseHour() {
+        int [] hours={0,1,2,3,4,5,6};
+        return hours[new Random().nextInt(7)];
+    }
+
 
 }
